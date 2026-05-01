@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Task Manager</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="auth-view" id="authView">
+        <div class="auth-panel">
+          <div>
+            <p class="eyebrow">Team Task Manager</p>
+            <h1>Projects, tasks, and progress in one workspace.</h1>
+          </div>
+
+          <div class="auth-tabs" role="tablist">
+            <button class="tab active" id="loginTab" type="button">Login</button>
+            <button class="tab" id="signupTab" type="button">Signup</button>
+          </div>
+
+          <form id="authForm" class="form-grid">
+            <div class="field signup-only hidden">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" />
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" autocomplete="current-password" required />
+            </div>
+
+            <div class="field signup-only hidden">
+              <label for="role">Role</label>
+              <select id="role" name="role">
+                <option value="Member">Member</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+
+            <button class="primary-btn" id="authSubmit" type="submit">Login</button>
+            <p class="message" id="authMessage"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="dashboard-view hidden" id="dashboardView">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Workspace</p>
+            <h1 id="welcomeTitle">Dashboard</h1>
+          </div>
+          <div class="user-actions">
+            <span class="role-pill" id="rolePill"></span>
+            <button class="ghost-btn" id="logoutBtn" type="button">Logout</button>
+          </div>
+        </header>
+
+        <section class="metrics-grid" aria-label="Dashboard metrics">
+          <article class="metric-card">
+            <span>Projects</span>
+            <strong id="projectCount">0</strong>
+          </article>
+          <article class="metric-card">
+            <span>Total tasks</span>
+            <strong id="taskCount">0</strong>
+          </article>
+          <article class="metric-card">
+            <span>My tasks</span>
+            <strong id="myTaskCount">0</strong>
+          </article>
+          <article class="metric-card danger">
+            <span>Overdue</span>
+            <strong id="overdueCount">0</strong>
+          </article>
+        </section>
+
+        <section class="work-grid">
+          <div class="panel">
+            <div class="panel-heading">
+              <h2>Create project</h2>
+            </div>
+            <form id="projectForm" class="form-grid">
+              <div class="field">
+                <label for="projectName">Project name</label>
+                <input id="projectName" name="name" type="text" required />
+              </div>
+              <div class="field">
+                <label for="projectDescription">Description</label>
+                <textarea id="projectDescription" name="description" rows="3"></textarea>
+              </div>
+              <div class="field admin-only hidden">
+                <label for="projectMembers">Members</label>
+                <select id="projectMembers" name="members" multiple size="5"></select>
+              </div>
+              <button class="primary-btn" type="submit">Create project</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <h2>Create task</h2>
+            </div>
+            <form id="taskForm" class="form-grid">
+              <div class="field">
+                <label for="taskTitle">Task title</label>
+                <input id="taskTitle" name="title" type="text" required />
+              </div>
+              <div class="field">
+                <label for="taskProject">Project</label>
+                <select id="taskProject" name="project" required></select>
+              </div>
+              <div class="field">
+                <label for="taskAssignee">Assign to</label>
+                <select id="taskAssignee" name="assignedTo" required></select>
+              </div>
+              <div class="split-fields">
+                <div class="field">
+                  <label for="taskPriority">Priority</label>
+                  <select id="taskPriority" name="priority">
+                    <option>Low</option>
+                    <option selected>Medium</option>
+                    <option>High</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="taskDueDate">Due date</label>
+                  <input id="taskDueDate" name="dueDate" type="date" required />
+                </div>
+              </div>
+              <div class="field">
+                <label for="taskDescription">Description</label>
+                <textarea id="taskDescription" name="description" rows="3"></textarea>
+              </div>
+              <button class="primary-btn" type="submit">Create task</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel">
+            <div class="panel-heading">
+              <h2>Projects</h2>
+            </div>
+            <div class="list" id="projectList"></div>
+          </div>
+
+          <div class="panel task-panel">
+            <div class="panel-heading">
+              <h2>Tasks</h2>
+              <select id="statusFilter" aria-label="Filter tasks by status">
+                <option value="">All statuses</option>
+                <option value="Todo">Todo</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+              </select>
+            </div>
+            <div class="status-strip">
+              <span><b id="todoCount">0</b> Todo</span>
+              <span><b id="progressCount">0</b> In Progress</span>
+              <span><b id="doneCount">0</b> Done</span>
+            </div>
+            <div class="list task-list" id="taskList"></div>
+          </div>
+        </section>
+
+        <p class="message global-message" id="globalMessage"></p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
